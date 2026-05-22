@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VINAYAK — Digital Marketing Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f0;
+    --blue: #3ab8e8;
+    --orange: #ff6b35;
+    --yellow: #ffd23f;
+    --mid-gray: #111111;
+    --border: rgba(245,245,240,0.10);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; cursor: none; }
+  .cursor { position:fixed; width:10px; height:10px; border-radius:50%; background:var(--orange); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform 0.1s; mix-blend-mode:difference; }
+  .cursor-ring { position:fixed; width:36px; height:36px; border-radius:50%; border:1.5px solid var(--blue); pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:left 0.12s ease, top 0.12s ease; }
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:var(--black); }
+  ::-webkit-scrollbar-thumb { background:var(--orange); }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:24px 60px; backdrop-filter:blur(12px); border-bottom:1px solid var(--border); background:rgba(10,10,10,0.88); }
+  .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:4px; color:var(--white); text-decoration:none; }
+  .nav-logo span { color:var(--orange); }
+  .nav-links { display:flex; gap:36px; list-style:none; }
+  .nav-links a { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(245,245,240,0.55); text-decoration:none; transition:color 0.2s; position:relative; }
+  .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--yellow); transition:width 0.25s; }
+  .nav-links a:hover { color:var(--white); }
+  .nav-links a:hover::after { width:100%; }
+  .nav-cta { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; padding:10px 24px; border:1.5px solid var(--orange); color:var(--orange); background:transparent; text-decoration:none; transition:background 0.2s, color 0.2s; }
+  .nav-cta:hover { background:var(--orange); color:var(--black); }
+
+  #hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding:140px 60px 80px; position:relative; overflow:hidden; }
+  .hero-bg-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(58,184,232,0.04) 1px, transparent 1px),linear-gradient(90deg, rgba(58,184,232,0.04) 1px, transparent 1px); background-size:60px 60px; pointer-events:none; }
+  .hero-bg-blob { position:absolute; top:-20%; right:-10%; width:700px; height:700px; border-radius:50%; background:radial-gradient(circle, rgba(255,107,53,0.13) 0%, transparent 70%); pointer-events:none; animation:pulse 6s ease-in-out infinite; }
+  .hero-bg-blob2 { position:absolute; bottom:-20%; left:-10%; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(58,184,232,0.10) 0%, transparent 70%); pointer-events:none; animation:pulse 8s ease-in-out infinite reverse; }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.1);opacity:0.7;} }
+  .hero-label { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--blue); display:flex; align-items:center; gap:12px; margin-bottom:28px; animation:fadeUp 0.8s 0.1s both; }
+  .hero-label::before { content:''; width:40px; height:1px; background:var(--blue); }
+  .hero-name { font-family:'Bebas Neue',sans-serif; font-size:clamp(80px,12vw,180px); line-height:0.9; letter-spacing:4px; color:var(--white); animation:fadeUp 0.8s 0.2s both; position:relative; z-index:1; }
+  .hero-name .highlight { color:var(--orange); }
+  .hero-role { font-family:'DM Sans',sans-serif; font-size:clamp(12px,1.3vw,16px); letter-spacing:5px; text-transform:uppercase; color:rgba(245,245,240,0.5); margin-top:12px; animation:fadeUp 0.8s 0.3s both; }
+  .hero-role .role-badge { display:inline-block; background:rgba(255,210,63,0.12); border:1px solid rgba(255,210,63,0.3); color:var(--yellow); padding:4px 14px; font-size:11px; letter-spacing:3px; border-radius:2px; margin-left:10px; }
+  .hero-divider { width:80px; height:2px; background:linear-gradient(90deg,var(--orange),var(--yellow)); margin:32px 0; animation:fadeUp 0.8s 0.4s both; }
+  .hero-summary { max-width:600px; font-size:15px; line-height:1.8; color:rgba(245,245,240,0.65); animation:fadeUp 0.8s 0.5s both; }
+  .hero-summary strong { color:var(--white); font-weight:500; }
+  .hero-stats { display:flex; gap:50px; margin-top:48px; animation:fadeUp 0.8s 0.6s both; }
+  .stat-num { font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1; color:var(--white); }
+  .stat-num span { color:var(--orange); }
+  .stat-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(245,245,240,0.4); margin-top:4px; }
+  .hero-actions { display:flex; gap:20px; margin-top:48px; animation:fadeUp 0.8s 0.7s both; }
+  .btn-primary { font-family:'Space Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; padding:16px 36px; background:var(--orange); color:var(--black); text-decoration:none; font-weight:700; transition:transform 0.2s, box-shadow 0.2s; border:2px solid var(--orange); }
+  .btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(255,107,53,0.35); }
+  .btn-secondary { font-family:'Space Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; padding:16px 36px; border:2px solid var(--border); color:rgba(245,245,240,0.7); text-decoration:none; transition:border-color 0.2s, color 0.2s; }
+  .btn-secondary:hover { border-color:var(--blue); color:var(--blue); }
+  .scroll-indicator { position:absolute; bottom:40px; left:60px; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:rgba(245,245,240,0.25); display:flex; align-items:center; gap:14px; animation:fadeIn 1s 1s both; }
+  .scroll-indicator::before { content:''; width:1px; height:50px; background:rgba(245,245,240,0.15); }
+
+  .marquee-strip { background:var(--orange); padding:16px 0; overflow:hidden; border-top:1px solid rgba(255,107,53,0.3); border-bottom:1px solid rgba(255,107,53,0.3); }
+  .marquee-track { display:flex; gap:40px; white-space:nowrap; animation:marquee 30s linear infinite; }
+  .marquee-item { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:3px; color:var(--black); flex-shrink:0; display:flex; align-items:center; gap:16px; }
+  .marquee-dot { width:6px; height:6px; border-radius:50%; background:var(--black); flex-shrink:0; }
+  @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+  section { padding:100px 60px; }
+  .section-label { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--blue); display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .section-label::before { content:''; width:30px; height:1px; background:var(--blue); }
+  .section-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(40px,5vw,70px); line-height:1; letter-spacing:2px; color:var(--white); margin-bottom:60px; }
+  .section-title span { color:var(--orange); }
+
+  #about { background:var(--black); }
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+  .about-right { display:flex; flex-direction:column; gap:24px; padding-top:20px; }
+  .about-paragraph { font-size:15px; line-height:1.9; color:rgba(245,245,240,0.65); }
+  .about-paragraph strong { color:var(--white); font-weight:500; }
+  .about-highlight-box { background:rgba(58,184,232,0.07); border:1px solid rgba(58,184,232,0.18); padding:24px; margin-top:10px; }
+  .about-highlight-box p { font-family:'Space Mono',monospace; font-size:12px; line-height:2; color:var(--blue); }
+
+  #skills { background:var(--mid-gray); }
+  .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2px; }
+  .skill-card { background:var(--black); padding:36px; border:1px solid var(--border); transition:border-color 0.3s, transform 0.3s; position:relative; overflow:hidden; }
+  .skill-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--orange),var(--yellow)); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+  .skill-card:hover { border-color:rgba(58,184,232,0.3); transform:translateY(-4px); }
+  .skill-card:hover::before { transform:scaleX(1); }
+  .skill-icon { font-size:28px; margin-bottom:16px; }
+  .skill-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; color:var(--white); margin-bottom:12px; }
+  .skill-tags { display:flex; flex-wrap:wrap; gap:8px; }
+  .tag { font-size:10px; letter-spacing:1px; text-transform:uppercase; padding:4px 10px; border-radius:2px; background:rgba(255,255,255,0.05); color:rgba(245,245,240,0.5); border:1px solid rgba(255,255,255,0.07); }
+  .tag.blue { background:rgba(58,184,232,0.1); color:var(--blue); border-color:rgba(58,184,232,0.2); }
+  .tag.orange { background:rgba(255,107,53,0.1); color:var(--orange); border-color:rgba(255,107,53,0.2); }
+  .tag.yellow { background:rgba(255,210,63,0.1); color:var(--yellow); border-color:rgba(255,210,63,0.2); }
+
+  #experience { background:var(--black); }
+  .exp-timeline { position:relative; }
+  .exp-timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(180deg,var(--orange),var(--blue),var(--yellow)); }
+  .exp-item { padding:0 0 60px 48px; position:relative; }
+  .exp-item::before { content:''; position:absolute; left:-6px; top:6px; width:13px; height:13px; border-radius:50%; background:var(--orange); border:2px solid var(--black); box-shadow:0 0 0 3px rgba(255,107,53,0.2); }
+  .exp-period { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--blue); text-transform:uppercase; margin-bottom:8px; }
+  .exp-company { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:2px; color:var(--white); line-height:1; }
+  .exp-role { font-size:13px; letter-spacing:2px; text-transform:uppercase; color:var(--yellow); margin:8px 0 20px; }
+  .exp-bullets { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .exp-bullets li { font-size:14px; line-height:1.7; color:rgba(245,245,240,0.65); padding-left:20px; position:relative; }
+  .exp-bullets li::before { content:'→'; position:absolute; left:0; color:var(--orange); }
+
+  #tools { background:var(--mid-gray); }
+  .tools-section-wrap { display:flex; flex-direction:column; gap:40px; }
+  .tools-row-label { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:rgba(245,245,240,0.35); margin-bottom:14px; }
+  .tools-row { display:flex; flex-wrap:wrap; gap:12px; }
+  .tool-pill { font-size:12px; letter-spacing:1px; padding:8px 18px; border-radius:2px; border:1px solid var(--border); color:rgba(245,245,240,0.65); background:rgba(255,255,255,0.03); transition:all 0.2s; cursor:default; }
+  .tool-pill:hover { background:rgba(58,184,232,0.1); border-color:var(--blue); color:var(--blue); transform:translateY(-2px); }
+
+  #certifications { background:var(--black); }
+  .cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; }
+  .cert-card { padding:28px; border:1px solid var(--border); position:relative; overflow:hidden; transition:border-color 0.3s; }
+  .cert-card:nth-child(1) .cert-accent { background:var(--orange); }
+  .cert-card:nth-child(2) .cert-accent { background:var(--blue); }
+  .cert-card:nth-child(3) .cert-accent { background:var(--yellow); }
+  .cert-card:nth-child(4) .cert-accent { background:var(--orange); }
+  .cert-card:nth-child(5) .cert-accent { background:var(--blue); }
+  .cert-accent { position:absolute; top:0; left:0; width:4px; height:100%; }
+  .cert-issuer { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(245,245,240,0.35); margin-bottom:10px; }
+  .cert-name { font-size:15px; font-weight:500; color:var(--white); line-height:1.4; }
+  .cert-card:hover { border-color:rgba(58,184,232,0.25); }
+
+  #contact { background:var(--mid-gray); position:relative; overflow:hidden; }
+  .contact-bg-text { position:absolute; bottom:-40px; right:-20px; font-family:'Bebas Neue',sans-serif; font-size:200px; color:rgba(255,255,255,0.02); letter-spacing:10px; pointer-events:none; white-space:nowrap; }
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .contact-intro { font-size:15px; line-height:1.8; color:rgba(245,245,240,0.6); max-width:420px; margin-bottom:40px; }
+  .contact-links { display:flex; flex-direction:column; gap:16px; }
+  .contact-link { display:flex; align-items:center; gap:16px; text-decoration:none; color:var(--white); font-size:14px; padding:16px 20px; border:1px solid var(--border); transition:border-color 0.2s, background 0.2s; }
+  .contact-link:hover { border-color:var(--orange); background:rgba(255,107,53,0.05); }
+  .contact-link-icon { font-size:18px; width:24px; text-align:center; }
+  .contact-link-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(245,245,240,0.35); }
+  .contact-link-value { font-family:'Space Mono',monospace; font-size:12px; color:var(--white); }
+  .big-cta { font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,6vw,88px); letter-spacing:2px; line-height:1; color:var(--white); margin-bottom:32px; }
+  .big-cta span { color:var(--orange); display:block; }
+  .cta-btn-wrap { display:flex; gap:16px; }
+
+  footer { background:var(--black); padding:30px 60px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .footer-logo { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:4px; }
+  .footer-logo span { color:var(--orange); }
+  .footer-copy { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; color:rgba(245,245,240,0.2); }
+  .footer-social { display:flex; gap:20px; }
+  .footer-social a { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(245,245,240,0.3); text-decoration:none; transition:color 0.2s; }
+  .footer-social a:hover { color:var(--blue); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+  @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s, transform 0.7s; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:768px){
+    nav { padding:20px 24px; }
+    .nav-links { display:none; }
+    #hero, section { padding:120px 24px 60px; }
+    section { padding:60px 24px; }
+    .hero-stats { gap:28px; flex-wrap:wrap; }
+    .hero-actions { flex-direction:column; }
+    .contact-grid, .about-grid { grid-template-columns:1fr; gap:40px; }
+    footer { flex-direction:column; gap:16px; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo">VINAYAK<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://www.linkedin.com/in/vinayak-036749206" target="_blank" class="nav-cta">LinkedIn ↗</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-blob"></div>
+  <div class="hero-bg-blob2"></div>
+  <div class="hero-label">Available for Opportunities · Hyderabad, India</div>
+  <h1 class="hero-name"><span class="highlight">V</span>INAYAK</h1>
+  <p class="hero-role">Digital Marketer <span class="role-badge">3+ Years</span></p>
+  <div class="hero-divider"></div>
+  <p class="hero-summary"><strong>AI-powered digital marketing specialist</strong> driving B2B &amp; B2C performance through automation, data analytics, and multi-channel campaign execution. Expert in SEO, Email Marketing, LinkedIn Outreach, Lead Generation &amp; CRM Integration.</p>
+  <div class="hero-stats">
+    <div><div class="stat-num">3<span>+</span></div><div class="stat-label">Years Exp.</div></div>
+    <div><div class="stat-num">4<span>+</span></div><div class="stat-label">Companies</div></div>
+    <div><div class="stat-num">30<span>+</span></div><div class="stat-label">Tools</div></div>
+    <div><div class="stat-num">5<span>✓</span></div><div class="stat-label">Certifications</div></div>
+  </div>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Let's Work Together</a>
+    <a href="#experience" class="btn-secondary">View Experience →</a>
+  </div>
+  <div class="scroll-indicator">Scroll Down</div>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="marquee-dot"></span>SEO SPECIALIST</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>EMAIL MARKETING</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>LEAD GENERATION</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>CRM INTEGRATION</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>LINKEDIN AUTOMATION</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>PAID ADVERTISING</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>CONTENT STRATEGY</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>DATA ANALYTICS</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>B2B MARKETING</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>AI-POWERED MARKETING</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>SEO SPECIALIST</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>EMAIL MARKETING</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>LEAD GENERATION</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>CRM INTEGRATION</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>LINKEDIN AUTOMATION</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>PAID ADVERTISING</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>CONTENT STRATEGY</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>DATA ANALYTICS</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>B2B MARKETING</div>
+    <div class="marquee-item"><span class="marquee-dot"></span>AI-POWERED MARKETING</div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label reveal">About Me</div>
+      <div class="section-title reveal">The Marketer<br>Behind <span>Results</span></div>
+      <div class="about-highlight-box reveal">
+        <p>📍 Hyderabad, India<br>📧 vinayakdiggi1997@gmail.com<br>📞 +91 82777 75684<br>🔗 linkedin.com/in/vinayak-036749206<br>🎓 B.E. Civil Engineering — VTU, 2019</p>
+      </div>
+    </div>
+    <div class="about-right">
+      <p class="about-paragraph reveal">I'm an <strong>AI-powered digital marketing specialist</strong> with 3+ years of experience delivering measurable growth for B2B and B2C businesses. My approach combines strategic thinking with advanced automation to drive real, scalable results.</p>
+      <p class="about-paragraph reveal">From building <strong>SEO strategies that dominate SERPs</strong> to orchestrating multi-channel email campaigns that nurture leads through every funnel stage — I connect data, technology, and human behaviour.</p>
+      <p class="about-paragraph reveal">I've worked across <strong>MSP, cybersecurity, IT staffing, IT products</strong> (including <strong>Liquid UI</strong>), and tech sectors — understanding complex B2B sales cycles and how to build marketing engines that fuel pipeline growth at scale.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label reveal">Core Skills</div>
+  <div class="section-title reveal">What I Do <span>Best</span></div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name">SEO & Organic Growth</div>
+      <div class="skill-tags">
+        <span class="tag blue">On-Page SEO</span><span class="tag blue">Off-Page SEO</span><span class="tag blue">Technical SEO</span><span class="tag">Local SEO</span><span class="tag">Site Audits</span><span class="tag">Keyword Research</span><span class="tag">SERP Optimisation</span><span class="tag">Competitor Analysis</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">📧</div>
+      <div class="skill-name">Email & Automation</div>
+      <div class="skill-tags">
+        <span class="tag orange">Funnel Building</span><span class="tag orange">Behavioural Automation</span><span class="tag orange">Lead Nurturing</span><span class="tag">Segmentation</span><span class="tag">Lead Scoring</span><span class="tag">A/B Testing</span><span class="tag">CRM Integration</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🎯</div>
+      <div class="skill-name">Lead Generation</div>
+      <div class="skill-tags">
+        <span class="tag yellow">B2B & B2C Funnels</span><span class="tag yellow">Cold Outreach</span><span class="tag yellow">LinkedIn Automation</span><span class="tag">ICP Development</span><span class="tag">Database Building</span><span class="tag">Buyer Persona</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">📱</div>
+      <div class="skill-name">Social Media</div>
+      <div class="skill-tags">
+        <span class="tag blue">Content Strategy</span><span class="tag blue">Content Calendar</span><span class="tag">Short-Form Video</span><span class="tag">Influencer Collab</span><span class="tag">Analytics</span><span class="tag">Performance Reporting</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">💰</div>
+      <div class="skill-name">Paid Advertising</div>
+      <div class="skill-tags">
+        <span class="tag orange">Google Ads</span><span class="tag orange">Meta Ads</span><span class="tag orange">LinkedIn Ads</span><span class="tag">Retargeting</span><span class="tag">Conversion Tracking</span><span class="tag">Budget Optimisation</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🤖</div>
+      <div class="skill-name">AI-Powered Marketing</div>
+      <div class="skill-tags">
+        <span class="tag blue">Claude AI</span><span class="tag blue">ChatGPT</span><span class="tag orange">AI Content Creation</span><span class="tag orange">AI Automation</span><span class="tag yellow">Prompt Engineering</span><span class="tag">HeyGen</span><span class="tag">Synthesia</span><span class="tag">ElevenLabs</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Analytics & Reporting</div>
+      <div class="skill-tags">
+        <span class="tag yellow">Google Analytics 4</span><span class="tag yellow">Search Console</span><span class="tag">SEMrush</span><span class="tag">Ahrefs</span><span class="tag">GTM</span><span class="tag">Moz</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label reveal">Work History</div>
+  <div class="section-title reveal">Where I've <span>Worked</span></div>
+  <div class="exp-timeline">
+    <div class="exp-item reveal">
+      <div class="exp-period">August 2025 – Present</div>
+      <div class="exp-company">Kore1 Manpower Solutions</div>
+      <div class="exp-role">Digital Marketing Executive</div>
+      <ul class="exp-bullets">
+        <li>Managed end-to-end B2B digital marketing campaigns for lead generation, brand awareness &amp; business growth using HubSpot, Salesforce, and GoHighLevel.</li>
+        <li>Executed email marketing — newsletters, promotional &amp; cold outreach via HubSpot, ActiveCampaign, Instantly, and Apollo to generate and engage leads.</li>
+        <li>Planned and optimised LinkedIn campaigns; leveraged HeyReach and Skylead automation to connect with key decision-makers at scale.</li>
+        <li>Implemented SEO strategies (On-Page, Off-Page, Technical &amp; Local) using GA4, Search Console, Ahrefs, and SEMrush to boost keyword rankings and organic traffic.</li>
+        <li>Administered CRM systems — HubSpot, Zoho CRM, Salesforce, GHL — for lead nurturing and sales pipeline management.</li>
+        <li>Produced marketing content: website pages, case studies, flyers, and promotional videos using Riverside, HeyGen, Synthesia, and InVideo.</li>
+      </ul>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">May 2025 – August 2025</div>
+      <div class="exp-company">Coders Boutique Studio</div>
+      <div class="exp-role">Lead Generation Executive</div>
+      <ul class="exp-bullets">
+        <li>Conducted B2B lead generation via LinkedIn — identifying and engaging prospective decision-makers aligned with ideal customer profiles.</li>
+        <li>Executed LinkedIn outreach campaigns using HeyReach automation to generate qualified leads and accelerate pipeline velocity.</li>
+        <li>Researched target companies, maintained prospect databases, and supported sales pipeline growth through structured targeted outreach.</li>
+      </ul>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">July 2024 – December 2024</div>
+      <div class="exp-company">Synactive India Pvt. Ltd.</div>
+      <div class="exp-role">Email Marketing Specialist</div>
+      <ul class="exp-bullets">
+        <li>Managed end-to-end email marketing — audience segmentation, automation workflows, and performance tracking using Act-On and Salesforce CRM.</li>
+        <li>Created and executed newsletters, product promotions, and webinar invitation campaigns to enhance lead nurturing and engagement.</li>
+        <li>Managed social media marketing for Liquid UI — content planning, scheduling, and cross-platform audience engagement.</li>
+      </ul>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">February 2023 – July 2024</div>
+      <div class="exp-company">GoLogica Technologies</div>
+      <div class="exp-role">Digital Marketing Executive</div>
+      <ul class="exp-bullets">
+        <li>Developed and implemented comprehensive SEO strategies to grow organic traffic, improve search visibility, and support business objectives.</li>
+        <li>Conducted in-depth keyword research, competitor analysis, and on-page optimisation including meta tags, internal linking, and technical SEO.</li>
+        <li>Managed social media channels, supported PPC and display advertising, and performed A/B testing on landing pages to maximise ROI.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="section-label reveal">Tech Stack</div>
+  <div class="section-title reveal">My <span>Toolkit</span></div>
+  <div class="tools-section-wrap">
+    <div class="reveal">
+      <div class="tools-row-label">CRM & Marketing Automation</div>
+      <div class="tools-row">
+        <span class="tool-pill">HubSpot</span><span class="tool-pill">Salesforce</span><span class="tool-pill">Zoho CRM</span><span class="tool-pill">GoHighLevel</span><span class="tool-pill">ActiveCampaign</span><span class="tool-pill">Act-On</span><span class="tool-pill">Make.com</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="tools-row-label">Lead Generation & Outreach</div>
+      <div class="tools-row">
+        <span class="tool-pill">Apollo.io</span><span class="tool-pill">Instantly</span><span class="tool-pill">ZoomInfo</span><span class="tool-pill">GetProspect</span><span class="tool-pill">Seamless.ai</span><span class="tool-pill">HeyReach</span><span class="tool-pill">Skylead</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="tools-row-label">SEO & Analytics</div>
+      <div class="tools-row">
+        <span class="tool-pill">Google Analytics 4</span><span class="tool-pill">Search Console</span><span class="tool-pill">SEMrush</span><span class="tool-pill">Ahrefs</span><span class="tool-pill">Moz</span><span class="tool-pill">Google Tag Manager</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="tools-row-label">Content & Video Creation</div>
+      <div class="tools-row">
+        <span class="tool-pill">Canva</span><span class="tool-pill">InVideo</span><span class="tool-pill">HeyGen</span><span class="tool-pill">Synthesia</span><span class="tool-pill">Riverside</span><span class="tool-pill">ElevenLabs</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="tools-row-label">AI Tools</div>
+      <div class="tools-row">
+        <span class="tool-pill">Claude AI</span><span class="tool-pill">ChatGPT</span><span class="tool-pill">Gemini</span><span class="tool-pill">Perplexity</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="tools-row-label">Social Media Management</div>
+      <div class="tools-row">
+        <span class="tool-pill">Publer</span><span class="tool-pill">Buffer</span><span class="tool-pill">LinkedIn Campaign Manager</span><span class="tool-pill">Meta Business Suite</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications" style="background:var(--black);">
+  <div class="section-label reveal">Credentials</div>
+  <div class="section-title reveal">Certifi<span>cations</span></div>
+  <div class="cert-grid">
+    <div class="cert-card reveal"><div class="cert-accent"></div><div class="cert-issuer">RIDM, Mysore</div><div class="cert-name">Certified Digital Marketer</div></div>
+    <div class="cert-card reveal"><div class="cert-accent"></div><div class="cert-issuer">UBCM Internship</div><div class="cert-name">Social Media Specialist</div></div>
+    <div class="cert-card reveal"><div class="cert-accent"></div><div class="cert-issuer">Google</div><div class="cert-name">Ads Display Certification</div></div>
+    <div class="cert-card reveal"><div class="cert-accent"></div><div class="cert-issuer">Google</div><div class="cert-name">Ads Creative Certification</div></div>
+    <div class="cert-card reveal"><div class="cert-accent"></div><div class="cert-issuer">Google</div><div class="cert-name">Programmatic Advertising Certification</div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-bg-text">HIRE</div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <p class="contact-intro">Whether you're looking for a digital marketing specialist to drive your next growth campaign, or want to discuss SEO, automation, or lead generation strategy — let's connect.</p>
+      <div class="contact-links">
+        <a href="mailto:vinayakdiggi1997@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          <div><div class="contact-link-label">Email</div><div class="contact-link-value">vinayakdiggi1997@gmail.com</div></div>
+        </a>
+        <a href="tel:+918277775684" class="contact-link">
+          <span class="contact-link-icon">📞</span>
+          <div><div class="contact-link-label">Phone</div><div class="contact-link-value">+91 82777 75684</div></div>
+        </a>
+        <a href="https://www.linkedin.com/in/vinayak-036749206" target="_blank" class="contact-link">
+          <span class="contact-link-icon">🔗</span>
+          <div><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">linkedin.com/in/vinayak-036749206</div></div>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-link-icon">📍</span>
+          <div><div class="contact-link-label">Location</div><div class="contact-link-value">Hyderabad, India</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="big-cta">Let's Build<br>Something<span>Great.</span></div>
+      <div class="cta-btn-wrap">
+        <a href="mailto:vinayakdiggi1997@gmail.com" class="btn-primary">Send an Email</a>
+        <a href="https://www.linkedin.com/in/vinayak-036749206" target="_blank" class="btn-secondary">LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">VINAYAK<span>.</span></div>
+  <div class="footer-copy">© 2025 Vinayak · Digital Marketing Specialist · Hyderabad</div>
+  <div class="footer-social">
+    <a href="https://www.linkedin.com/in/vinayak-036749206" target="_blank">LinkedIn</a>
+    <a href="mailto:vinayakdiggi1997@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2.5)'; ring.style.transform='translate(-50%,-50%) scale(1.5)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; ring.style.transform='translate(-50%,-50%) scale(1)'; });
+  });
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+  document.querySelectorAll('.skills-grid .skill-card, .cert-grid .cert-card').forEach((el,i) => {
+    el.style.transitionDelay = (i * 0.07) + 's';
+  });
+</script>
+</body>
+</html>
